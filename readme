@@ -5,3 +5,5 @@ To install:
 To uninstall:
 
 ./clean.sh
+
+With Ubuntu 20.04, I needed to run `bash install.sh` to download all the requirements. `version-check.sh` will have the correct version requirements (unless they go above a certain version number). Additionally, /bin/sh points to /bin/dash (why??), so `rm /bin/sh` and `ln -s /bin/bash` and fix that.
