@@ -1,0 +1,7 @@
+To install:
+
+./make.sh
+
+To uninstall:
+
+./clean.sh
