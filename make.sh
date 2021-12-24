@@ -70,4 +70,18 @@ cp lfs.bashprofile /home/lfs/.bash_profile
 [ ! -e /etc/bash.bashrc ] || mv /etc/bash.bashrc /etc/bash.bashrc.NOUSE
 
 ### Set up user -----------------------------------
+### Unpack files ----------------------------------
+if [ -z "$(ls -A $LFS/sources)" ]; then
+	echo "Extracting source files"
+	tar -xf *.tar -C $LFS/sources
+	mv $LFS/sources/*/* $LFS/sources/
+fi
+# Check files -- go into directory, then come back out
+echo "Verifying source checksums"
+cur_dir=${pwd}
+cd $LFS/sources
+md5sum -c --quiet md5sums
+cd $cur_dir
+unset cur_dir
 
+### Unpack files ----------------------------------
