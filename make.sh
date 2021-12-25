@@ -78,16 +78,23 @@ if [ -z "$(ls -A $LFS/sources)" ]; then
 	echo "Extracting source files"
 	tar -xf *.tar -C $LFS/sources
 	mv $LFS/sources/*/* $LFS/sources/
+	new_files=1
+else
+	new_files=0
 fi
+# Only verify if setting "verify" or you've just extracted
+# the files.
 # Check files -- go into directory, then come back out
-echo "Verifying source checksums"
-cur_dir=${pwd}
-cd $LFS/sources
-md5sum -c --quiet md5sums
-cd $cur_dir
-unset cur_dir
+if [[ "$@" == *"verify"* || $new_files -eq 1 ]] ; then
+	echo "Verifying source checksums"
+	cur_dir=${pwd}
+	cd $LFS/sources
+	md5sum -c --quiet md5sums
+	cd $cur_dir
+	unset cur_dir
+fi
 
 ### Unpack files ----------------------------------
 
 ### Compile toolchain -----------------------------
-sudo -u lfs bash $LFS/toolchain.sh
+[[ "$@" == *"compile"* ]] && sudo -u lfs bash $LFS/toolchain.sh
