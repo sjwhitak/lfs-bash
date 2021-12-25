@@ -58,6 +58,9 @@ if ! id -u "lfs" &>/dev/null; then
 	useradd -s /bin/bash -g lfs -m -k /dev/null lfs
 fi
 
+# Copy scripts that are run under lfs
+cp toolchain.sh $LFS
+
 # Make $LFS under lfs
 chown -R lfs:lfs $LFS
 
@@ -85,3 +88,6 @@ cd $cur_dir
 unset cur_dir
 
 ### Unpack files ----------------------------------
+
+### Compile toolchain -----------------------------
+sudo -u lfs bash $LFS/toolchain.sh
