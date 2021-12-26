@@ -62,7 +62,7 @@ fi
 cp toolchain.sh $LFS
 
 # Make $LFS under lfs
-chown -R lfs:lfs $LFS
+chown -R lfs:lfs $LFS # TODO: This causes a slow down with untar-d files
 
 # Set up the user
 cp lfs.bashrc /home/lfs/.bashrc
